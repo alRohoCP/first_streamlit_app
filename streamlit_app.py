@@ -19,8 +19,10 @@ streamlit.text('🥑🍞 Avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
 
-#Interaction with the table to pick the fruits customers want to include
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
+#Interaction with the table to pick the fruits customers want to include. We have selected by default Avocado and Strawberries
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
+# With this code we filter the table with the selected fruits (at first instance, the selected fruits by default)
+fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 #Smoothies table 
 streamlit.dataframe(my_fruit_list)
