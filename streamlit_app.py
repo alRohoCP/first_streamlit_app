@@ -8,9 +8,6 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 # We want to see the number of the fruits as id_row or index, not a numerical ID
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
-# Fruitvyce api respones
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-
 # Streamlit Code
 streamlit.title('My Mom\'s New Healthy Diner')
 
@@ -33,9 +30,16 @@ streamlit.dataframe(fruits_to_show)
 
 #API response
 streamlit.header('Fruityvice Fruit Advice!')
+fruit_choice = streamlit.text_input('What fruit would you like information about?', 'Kiwi')
+streamlit.write('The user entered', fruit_choice)
+
+# Fruitvyce api respones
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+
 # This just writes the data to the screen 
 # streamlit.text(fruityvice_response.json())
 # let's normalize the text using a dataframe
+
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 streamlit.dataframe(fruityvice_normalized)
 
